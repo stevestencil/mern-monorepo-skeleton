@@ -1,6 +1,6 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
-import mongoose from "mongoose";
-import { beforeAll, afterAll, beforeEach, afterEach } from "vitest";
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongoose from 'mongoose';
+import { beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 
 let mongoServer: MongoMemoryServer;
 
@@ -10,9 +10,9 @@ beforeAll(async () => {
   const mongoUri = mongoServer.getUri();
 
   // Set environment variable for the app
-  process.env["MONGODB_URI"] = mongoUri;
-  process.env["NODE_ENV"] = "test";
-  process.env["PORT"] = "0"; // Use random port for tests
+  process.env['MONGODB_URI'] = mongoUri;
+  process.env['NODE_ENV'] = 'test';
+  process.env['PORT'] = '0'; // Use random port for tests
 });
 
 afterAll(async () => {

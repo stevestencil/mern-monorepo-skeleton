@@ -1,8 +1,8 @@
-import request from "supertest";
+import request from 'supertest';
 
-import { app } from "../../server";
+import { app } from '../../server';
 
-import type { Express } from "express";
+import type { Express } from 'express';
 
 export const getTestApp = (): Express => {
   return app;
@@ -13,7 +13,7 @@ export const makeRequest = () => {
 };
 
 export const waitForDatabase = async (maxAttempts = 10): Promise<void> => {
-  const mongoose = await import("mongoose");
+  const mongoose = await import('mongoose');
 
   for (let i = 0; i < maxAttempts; i++) {
     if (
@@ -22,8 +22,8 @@ export const waitForDatabase = async (maxAttempts = 10): Promise<void> => {
     ) {
       return;
     }
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
 
-  throw new Error("Database connection timeout");
+  throw new Error('Database connection timeout');
 };

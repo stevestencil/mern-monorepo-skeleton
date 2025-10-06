@@ -1,12 +1,12 @@
-import { vi } from "vitest";
+import { vi } from 'vitest';
 
 // Mock environment variables
-process.env["NODE_ENV"] = "test";
-process.env["MONGODB_URI"] = "mongodb://localhost:27017/test";
-process.env["PORT"] = "3001";
+process.env['NODE_ENV'] = 'test';
+process.env['MONGODB_URI'] = 'mongodb://localhost:27017/test';
+process.env['PORT'] = '3001';
 
 // Mock mongoose connection
-vi.mock("mongoose", () => ({
+vi.mock('mongoose', () => ({
   default: {
     connect: vi.fn(),
     connection: {
@@ -32,7 +32,7 @@ vi.mock("mongoose", () => ({
 }));
 
 // Mock pino logger
-vi.mock("pino", () => ({
+vi.mock('pino', () => ({
   __esModule: true,
   default: vi.fn(() => ({
     info: vi.fn(),
@@ -43,7 +43,7 @@ vi.mock("pino", () => ({
 }));
 
 // Mock pino-http
-vi.mock("pino-http", () => ({
+vi.mock('pino-http', () => ({
   __esModule: true,
   default: vi.fn(
     () => (_req: unknown, _res: unknown, next: () => void) => next(),
