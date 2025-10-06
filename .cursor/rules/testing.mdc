@@ -1,8 +1,8 @@
 ---
 description: Testing standards for web and api
 globs:
-  - "apps/**"
-  - "packages/**"
+  - 'apps/**'
+  - 'packages/**'
 ---
 
 # Testing
@@ -11,6 +11,12 @@ globs:
 - Strive for fast unit tests; mock network and DB where possible.
 - Put tests in `__tests__` close to source.
 - Maintain 80% test coverage minimum for branches, functions, lines, and statements.
+- **MANDATORY**: All new code must include tests. No exceptions.
+- Integration tests required for all API endpoints.
+- Component tests required for all React components with user interactions.
+- Test error scenarios and edge cases, not just happy paths.
+- Use proper test data factories and fixtures.
+- Implement proper test isolation and cleanup.
 
 # Vitest Configuration
 
@@ -57,6 +63,20 @@ pnpm --filter @shared/core test
 - Mock environment variables in test setup
 - Use Vitest mocks (`vi.fn()`, `vi.mock()`) for functions and modules
 - Mock API responses for consistent testing
+- Use proper test doubles (stubs, spies, mocks) appropriately
+- Mock database connections and operations
+- Mock file system operations and external services
+- Use proper async/await patterns in tests
+
+# Test Quality Standards
+
+- Write descriptive test names that explain the behavior being tested
+- Follow the AAA pattern (Arrange, Act, Assert)
+- Test one thing per test case
+- Use proper assertions with meaningful error messages
+- Avoid testing implementation details; test behavior
+- Use proper setup and teardown for integration tests
+- Implement proper test data management and cleanup
 
 # Comprehensive Documentation
 

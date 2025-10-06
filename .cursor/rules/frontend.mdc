@@ -1,7 +1,7 @@
 ---
 description: Rules for React app, data fetching, and UI structure
 globs:
-  - "apps/web/**"
+  - 'apps/web/**'
 ---
 
 # React Rules
@@ -9,10 +9,19 @@ globs:
 - Use React Router for pages in `src/routes/*`.
 - Use TanStack Query for server state. Never fetch in useEffect directly.
 - Centralize API calls in `src/api.ts`. Always throw on non-2xx.
+- Use proper loading and error states in components.
+- Implement proper form validation with user feedback.
+- Use React.memo() for expensive components that receive stable props.
+- Avoid prop drilling; use context or state management when needed.
+- Implement proper accessibility (a11y) with ARIA labels and keyboard navigation.
 
 # Components
 
 - Keep pages thin; extract components when they exceed ~100 lines.
+- Use TypeScript for all component props with proper interfaces.
+- Implement proper error boundaries for component error handling.
+- Use consistent naming conventions for components and files.
+- Extract reusable UI components into a shared components library.
 
 # API Integration
 
@@ -20,6 +29,18 @@ globs:
 - Read API base from `VITE_API_BASE`; keep default in `README.md` synced with code.
 - If routes, paths, or error envelope change, update `apps/web/src/api.ts` and the `README.md` examples.
 - Document any new env vars or flags.
+- Implement proper error handling for API failures.
+- Use proper TypeScript types for API responses.
+- Implement request/response interceptors for common functionality.
+- Cache API responses appropriately with TanStack Query.
+
+# Performance & Optimization
+
+- Use code splitting with React.lazy() for route-based components.
+- Implement proper image optimization and lazy loading.
+- Use proper bundle analysis to monitor bundle size.
+- Implement proper caching strategies for static assets.
+- Use proper SEO optimization with meta tags and structured data.
 
 # Comprehensive Documentation
 

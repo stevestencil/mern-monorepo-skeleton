@@ -1,7 +1,7 @@
 ---
 description: Security & env guidance
 globs:
-  - "**/*"
+  - '**/*'
 ---
 
 # Security
@@ -9,6 +9,18 @@ globs:
 - Never commit .env or secrets. Provide .env.example.
 - Use Helmet, CORS on API. Validate inputs with Zod.
 - Sanitize outputs; avoid echoing raw error messages.
+- Implement rate limiting for API endpoints.
+- Use HTTPS in production; enforce secure headers.
+- Validate file uploads with type checking and size limits.
+- Implement proper authentication and authorization middleware.
+- Use environment-specific CORS configurations.
+- Implement proper session management and secure cookies.
+- Use proper password hashing (bcrypt, scrypt, or argon2).
+- Implement proper CSRF protection.
+- Use proper XSS protection with Content Security Policy.
+- Implement proper SQL injection protection with parameterized queries.
+- Use proper input validation and sanitization.
+- Implement proper logging for security events.
 
 # Env Documentation
 

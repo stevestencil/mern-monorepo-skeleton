@@ -1,7 +1,7 @@
 ---
 description: Rules for Express API, Mongo models, routing, and validation
 globs:
-  - "apps/api/**"
+  - 'apps/api/**'
 ---
 
 # API Rules
@@ -10,11 +10,31 @@ globs:
 - Validate all request bodies with Zod before DB writes.
 - Use Mongoose models in `apps/api/src/models/*`. Keep schemas minimal.
 - API is mounted under `/api`; keep this consistent with web defaults and `README.md`.
+- Implement proper request/response logging with structured data.
+- Use consistent API response format with proper status codes.
+- Implement rate limiting for all endpoints.
+- Add proper CORS configuration for production environments.
+
+# Database & Models
+
+- Use Mongoose models in `apps/api/src/models/*`. Keep schemas minimal.
+- Always define proper indexes for query performance.
+- Use transactions for multi-document operations.
+- Implement proper data validation at the schema level.
+- Use lean() queries when full document hydration isn't needed.
+- Implement proper pagination for list endpoints.
+- Use proper error handling for database connection issues.
+- Implement connection pooling and proper connection management.
 
 # Error Handling
 
 - Fail fast on validation with 400 and formatted zod error.
 - Log server errors with pino; never leak stack traces to clients.
+- Use typed error classes extending Error for different error types.
+- Always provide meaningful error messages for client-facing errors.
+- Use proper HTTP status codes (400 for validation, 401 for auth, 403 for forbidden, 404 for not found, 500 for server errors).
+- Implement centralized error handling middleware.
+- Validate all inputs with Zod schemas before processing.
 
 # Testing
 

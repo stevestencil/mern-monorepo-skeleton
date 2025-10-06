@@ -1,7 +1,7 @@
 ---
 description: Core conventions, repo tasks, and coding standards for the monorepo
 globs:
-  - "**/*"
+  - '**/*'
 ---
 
 # Project-wide Conventions
@@ -10,6 +10,16 @@ globs:
 - Prefer functional, small modules. Avoid long classes.
 - Always write a short JSDoc for exported functions and types.
 - Do not hardcode env secrets; read from process.env with typed helpers.
+
+# Code Quality
+
+- Functions should not exceed 50 lines; extract smaller functions when needed.
+- Files should not exceed 300 lines; split into modules when needed.
+- Use meaningful variable and function names that describe intent.
+- Avoid deep nesting (max 3 levels); extract functions or use early returns.
+- Prefer composition over inheritance.
+- Use proper error handling with typed error classes.
+- Implement proper logging with structured data.
 
 # Documentation coupling (MANDATORY)
 
@@ -36,8 +46,21 @@ globs:
 
 # TypeScript & Lint
 
-- Strict TypeScript across the monorepo. `any` is forbidden.
+- Strict TypeScript across the monorepo. `any` type is **FORBIDDEN** - use proper typing or `unknown`.
+- Enable `noImplicitAny`, `noExplicitAny` compiler flags - enforced via ESLint.
 - Fix ESLint and type errors before committing.
+- All functions must have explicit return types when not inferrable.
+- Use proper TypeScript utility types (Partial, Pick, Omit, Record, etc.).
+- Prefer type definitions over interfaces when possible for better performance.
+- Use const assertions for immutable data structures.
+
+# Documentation Requirements
+
+- All exported functions, classes, and types must have JSDoc comments.
+- Complex business logic must include inline comments explaining the "why".
+- Update README.md when adding new scripts, dependencies, or configuration changes.
+- API endpoints must be documented with request/response examples.
+- Environment variables must be documented in README.md with examples.
 
 # Comprehensive Documentation
 
