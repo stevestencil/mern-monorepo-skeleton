@@ -3,6 +3,9 @@ import { describe, it, expect } from "vitest";
 
 import { app } from "../server";
 
+// Import the shared test setup
+import "./setup";
+
 // Type assertion for supertest
 const requestApp = request(app);
 

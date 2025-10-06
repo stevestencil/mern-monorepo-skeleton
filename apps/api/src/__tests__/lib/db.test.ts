@@ -3,19 +3,8 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 
 import { connectDB } from "../../lib/db";
 
-// Mock mongoose
-vi.mock("mongoose", () => ({
-  default: {
-    connect: vi.fn(),
-    connection: {
-      readyState: 0,
-    },
-  },
-  connect: vi.fn(),
-  connection: {
-    readyState: 0,
-  },
-}));
+// Import the shared test setup
+import "../setup";
 
 describe("connectDB", () => {
   const mockConnect = vi.mocked(mongoose.connect);

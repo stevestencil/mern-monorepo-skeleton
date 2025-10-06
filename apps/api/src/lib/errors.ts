@@ -1,13 +1,14 @@
-import type { ErrorRequestHandler, Request, Response } from 'express';
-import { ZodError } from 'zod';
+import { ZodError } from "zod";
 
-export type ErrorEnvelope = {
+import type { ErrorRequestHandler, Request, Response } from "express";
+
+export interface ErrorEnvelope {
   error: {
     code: string;
     message: string;
     details?: unknown;
   };
-};
+}
 
 export class AppError extends Error {
   public readonly status: number;
@@ -25,21 +26,21 @@ export class AppError extends Error {
     this.details = details;
   }
   static badRequest(message: string, details?: unknown) {
-    return new AppError(400, 'BAD_REQUEST', message, details);
+    return new AppError(400, "BAD_REQUEST", message, details);
   }
-  static notFound(message = 'Not found') {
-    return new AppError(404, 'NOT_FOUND', message);
+  static notFound(message = "Not found") {
+    return new AppError(404, "NOT_FOUND", message);
   }
-  static internal(message = 'Internal server error') {
-    return new AppError(500, 'INTERNAL', message);
+  static internal(message = "Internal server error") {
+    return new AppError(500, "INTERNAL", message);
   }
 }
 
 export function formatZod(err: ZodError): ErrorEnvelope {
   return {
     error: {
-      code: 'VALIDATION_ERROR',
-      message: 'Validation failed',
+      code: "VALIDATION_ERROR",
+      message: "Validation failed",
       details: err.issues,
     },
   };
@@ -61,7 +62,7 @@ export const errorHandler: ErrorRequestHandler = (
     return res.status(400).json(body);
   }
   const body: ErrorEnvelope = {
-    error: { code: 'INTERNAL', message: 'Internal server error' },
+    error: { code: "INTERNAL", message: "Internal server error" },
   };
   return res.status(500).json(body);
 };

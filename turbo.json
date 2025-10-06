@@ -11,6 +11,10 @@
     },
     "lint": {},
     "test": {},
+    "test:integration": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "typecheck": {}
   }
 }

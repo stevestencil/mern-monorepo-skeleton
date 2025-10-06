@@ -7,9 +7,27 @@ process.env["PORT"] = "3001";
 
 // Mock mongoose connection
 vi.mock("mongoose", () => ({
+  default: {
+    connect: vi.fn(),
+    connection: {
+      readyState: 0,
+    },
+    ConnectionStates: {
+      disconnected: 0,
+      connected: 1,
+      connecting: 2,
+      disconnecting: 3,
+    },
+  },
   connect: vi.fn(),
   connection: {
     readyState: 0,
+  },
+  ConnectionStates: {
+    disconnected: 0,
+    connected: 1,
+    connecting: 2,
+    disconnecting: 3,
   },
 }));
 
