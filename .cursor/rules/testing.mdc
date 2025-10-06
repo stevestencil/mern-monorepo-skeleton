@@ -7,14 +7,56 @@ globs:
 
 # Testing
 
-- Use Vitest everywhere. On web, use Testing Library.
+- Use Vitest everywhere. On web, use Testing Library with Vitest.
 - Strive for fast unit tests; mock network and DB where possible.
 - Put tests in `__tests__` close to source.
+- Maintain 80% test coverage minimum for branches, functions, lines, and statements.
 
-# CI & Docs
+# Vitest Configuration
+
+- Each package has its own Vitest configuration in `vitest.config.ts`
+- Root Vitest config orchestrates all packages
+- Built-in TypeScript support with Vite
+- Use `jsdom` environment for React component testing
+
+# Test Structure
+
+- **API Tests**: Use Supertest for integration testing, mock external dependencies
+- **Component Tests**: Use React Testing Library with Vitest
+- **Unit Tests**: Test individual functions and utilities
+- **Setup Files**: Use `setup.ts` files for test configuration and mocks
+
+# CI & Coverage
 
 - Use Vitest across workspaces. Keep `pnpm test` green.
-- If test commands or coverage settings change, reflect them in `README.md` where relevant.
+- Coverage reports generated in HTML and LCOV formats
+- Coverage threshold: 80% minimum for all metrics
+- Exclude type definitions, node_modules, dist, and coverage directories
+
+# Testing Commands
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage
+pnpm test:coverage
+
+# Run tests for specific package
+pnpm --filter api test
+pnpm --filter web test
+pnpm --filter @shared/core test
+```
+
+# Mock Patterns
+
+- Mock external dependencies (mongoose, APIs, etc.)
+- Mock environment variables in test setup
+- Use Vitest mocks (`vi.fn()`, `vi.mock()`) for functions and modules
+- Mock API responses for consistent testing
 
 # Comprehensive Documentation
 

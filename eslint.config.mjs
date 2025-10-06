@@ -5,7 +5,7 @@ import pluginImportX from "eslint-plugin-import-x";
 
 export default [
   {
-    ignores: ["**/dist/**", "**/node_modules/**"],
+    ignores: ["**/dist/**", "**/node_modules/**", "**/vitest.config.ts"],
   },
   // Type-aware configs per workspace tsconfig
   ...tseslint.configs.recommendedTypeChecked,
@@ -72,7 +72,6 @@ export default [
           },
         },
       ],
-      "import-x/no-duplicate-imports": "error",
       "import-x/no-unused-modules": "error",
     },
   },

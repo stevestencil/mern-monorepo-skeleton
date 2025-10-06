@@ -110,27 +110,88 @@ docs: update README with new environment variables
 
 ## Testing Standards
 
+### Vitest Framework
+
+- **Primary Framework**: Use Vitest for all testing across the monorepo
+- **TypeScript Support**: Built-in TypeScript support via Vite
+- **Coverage Requirements**: Maintain 80% minimum coverage for branches, functions, lines, and statements
+- **Test Location**: Place tests in `__tests__` directories close to source files
+
 ### Unit Tests
 
 - Write tests for all new functionality
-- Use descriptive test names
+- Use descriptive test names that explain the expected behavior
 - Test both success and error cases
-- Mock external dependencies
+- Mock external dependencies (APIs, databases, etc.)
+- Use Vitest mocks (`vi.fn()`, `vi.mock()`) for functions and modules
 
 ### Integration Tests
 
-- Test API endpoints with real database
-- Test component interactions
-- Test error scenarios
+- Test API endpoints with mocked database connections
+- Test component interactions using React Testing Library
+- Test error scenarios and edge cases
+- Use Supertest for API endpoint testing
+
+### Component Testing
+
+- Use React Testing Library with Vitest
+- Test user interactions and component behavior
+- Mock external dependencies and API calls
+- Test accessibility features
 
 ### Test Structure
 
 ```
 src/
 ├── __tests__/
-│   ├── unit/
-│   └── integration/
+│   ├── setup.ts          # Test configuration and mocks
+│   ├── lib/              # Unit tests for utilities
+│   ├── components/       # Component tests
+│   └── integration/      # Integration tests
 ```
+
+### Test Commands
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage
+pnpm test:coverage
+
+# Run tests for specific package
+pnpm --filter api test
+pnpm --filter web test
+pnpm --filter @shared/core test
+```
+
+### Mock Patterns
+
+```typescript
+// Mock external dependencies
+vi.mock("mongoose", () => ({
+  connect: vi.fn(),
+  connection: { readyState: 0 },
+}));
+
+// Mock environment variables
+process.env.NODE_ENV = "test";
+
+// Mock API responses
+vi.mock("../api", () => ({
+  getUsers: vi.fn().mockResolvedValue([]),
+}));
+```
+
+### Coverage Requirements
+
+- **Minimum Coverage**: 80% for all metrics (branches, functions, lines, statements)
+- **Coverage Reports**: Generated in HTML and LCOV formats
+- **Excluded Files**: Type definitions, node_modules, dist, and coverage directories
+- **Coverage Directory**: `<rootDir>/coverage`
 
 ## Documentation Standards
 

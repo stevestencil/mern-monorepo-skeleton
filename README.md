@@ -69,11 +69,43 @@ curl -s http://localhost:4000/api/healthz
 
 - `pnpm dev`: Run all workspaces in dev via Turborepo
 - `pnpm build`: Build all workspaces
-- `pnpm test`: Run tests
+- `pnpm test`: Run all tests with Jest
+- `pnpm test:watch`: Run tests in watch mode
+- `pnpm test:coverage`: Run tests with coverage reports
 - `pnpm lint`: Lint all workspaces
 - `pnpm typecheck`: Type-check all workspaces
 
 Workspace-specific scripts also exist under each package (e.g., `apps/api`, `apps/web`).
+
+### Testing
+
+The project uses Vitest as the primary testing framework with comprehensive coverage requirements:
+
+- **Framework**: Vitest with built-in TypeScript support via Vite
+- **Coverage**: 80% minimum coverage for branches, functions, lines, and statements
+- **Test Structure**: Tests located in `__tests__` directories close to source files
+- **API Testing**: Supertest for integration testing with mocked dependencies
+- **Component Testing**: React Testing Library with Vitest for React components
+
+Run tests:
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage
+pnpm test:coverage
+
+# Run tests for specific package
+pnpm --filter api test
+pnpm --filter web test
+pnpm --filter @shared/core test
+```
+
+See `docs/DEVELOPMENT.md` for detailed testing patterns and examples.
 
 ### Updating all dependencies to latest
 

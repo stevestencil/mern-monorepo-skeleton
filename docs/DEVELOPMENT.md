@@ -323,15 +323,55 @@ export const sanitizeString = (str: string): string => {
 
 ## Testing Patterns
 
-### 1. API Testing
+### 1. Jest Configuration
+
+The project uses Jest as the primary testing framework with TypeScript support. Each package has its own Jest configuration:
+
+```javascript
+// jest.config.js (root)
+module.exports = {
+  projects: [
+    "<rootDir>/apps/api",
+    "<rootDir>/apps/web",
+    "<rootDir>/packages/shared",
+  ],
+  collectCoverageFrom: [
+    "**/*.{ts,tsx}",
+    "!**/*.d.ts",
+    "!**/node_modules/**",
+    "!**/dist/**",
+    "!**/coverage/**",
+  ],
+  coverageDirectory: "<rootDir>/coverage",
+  coverageReporters: ["text", "lcov", "html"],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
+};
+```
+
+### 2. API Testing
 
 ```typescript
 // apps/api/src/__tests__/users.test.ts
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "@jest/globals";
 import request from "supertest";
 import { app } from "../server";
 
 describe("Users API", () => {
+  beforeEach(() => {
+    // Setup test database
+  });
+
+  afterEach(() => {
+    // Cleanup test data
+  });
+
   it("should create a user", async () => {
     const userData = {
       name: "John Doe",
@@ -345,14 +385,29 @@ describe("Users API", () => {
 
     expect(response.body).toMatchObject(userData);
   });
+
+  it("should handle validation errors", async () => {
+    const invalidData = {
+      name: "",
+      email: "invalid-email",
+    };
+
+    const response = await request(app)
+      .post("/api/users")
+      .send(invalidData)
+      .expect(400);
+
+    expect(response.body.error).toBeDefined();
+  });
 });
 ```
 
-### 2. Component Testing
+### 3. Component Testing
 
 ```typescript
 // apps/web/src/components/__tests__/UserCard.test.tsx
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect } from '@jest/globals';
 import { UserCard } from '../UserCard';
 import { User } from '@shared/types';
 
@@ -371,7 +426,83 @@ describe('UserCard', () => {
     expect(screen.getByText('John Doe')).toBeInTheDocument();
     expect(screen.getByText('john@example.com')).toBeInTheDocument();
   });
+
+  it('should call onEdit when edit button is clicked', () => {
+    const onEdit = jest.fn();
+    render(<UserCard user={mockUser} onEdit={onEdit} />);
+
+    fireEvent.click(screen.getByRole('button', { name: /edit/i }));
+    expect(onEdit).toHaveBeenCalledWith(mockUser);
+  });
 });
+```
+
+### 4. Unit Testing Utilities
+
+```typescript
+// apps/api/src/__tests__/lib/errors.test.ts
+import { AppError, errorHandler, formatZod } from "../../lib/errors";
+import { ZodError, z } from "zod";
+
+describe("AppError", () => {
+  it("should create an AppError with correct properties", () => {
+    const error = new AppError(400, "BAD_REQUEST", "Invalid input", {
+      field: "email",
+    });
+
+    expect(error.status).toBe(400);
+    expect(error.code).toBe("BAD_REQUEST");
+    expect(error.message).toBe("Invalid input");
+    expect(error.details).toEqual({ field: "email" });
+  });
+});
+```
+
+### 5. Testing Commands
+
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage
+pnpm test:coverage
+
+# Run tests for specific package
+pnpm --filter api test
+pnpm --filter web test
+pnpm --filter @shared/core test
+```
+
+### 6. Test Coverage Requirements
+
+- **Minimum Coverage**: 80% for branches, functions, lines, and statements
+- **Coverage Reports**: Generated in HTML and LCOV formats
+- **Coverage Directory**: `<rootDir>/coverage`
+- **Excluded Files**: Type definitions, node_modules, dist, and coverage directories
+
+### 7. Mock Patterns
+
+```typescript
+// Mock external dependencies
+jest.mock("mongoose", () => ({
+  connect: jest.fn(),
+  connection: {
+    readyState: 0,
+  },
+}));
+
+// Mock environment variables
+process.env.NODE_ENV = "test";
+process.env.MONGODB_URI = "mongodb://localhost:27017/test";
+
+// Mock API responses
+jest.mock("../api", () => ({
+  getUsers: jest.fn().mockResolvedValue([]),
+  createUser: jest.fn().mockResolvedValue({ id: "1", name: "Test User" }),
+}));
 ```
 
 ## Environment Configuration
