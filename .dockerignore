@@ -1,0 +1,14 @@
+# Root dockerignore
+node_modules
+**/node_modules
+**/.turbo
+**/dist
+**/.next
+**/.cache
+**/.vite
+**/coverage
+**/.pnpm-store
+**/.DS_Store
+**/.env*
+.git
+.gitignore

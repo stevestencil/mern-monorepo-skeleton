@@ -91,6 +91,38 @@ The script will:
 
 1. install the workspace, 2) upgrade deps, 3) reinstall, 4) run lint/typecheck/tests.
 
+### Docker
+
+- **Compose**: `docker-compose.yml` provides `mongo`, `api`, and `web` services.
+- **Ports**:
+  - API: `4000` (mounts at `/api`)
+  - Web: `5173`
+  - MongoDB: `27017`
+
+Build and run (prod profile):
+
+```bash
+# Build images
+docker compose build --profile prod
+
+# Run stack
+docker compose up -d --profile prod
+
+# Logs
+docker compose logs -f api
+```
+
+Environment used by compose:
+
+- API: `MONGODB_URI=mongodb://mongo:27017/mern`, `PORT=4000`, `NODE_ENV=production`
+- Web: `VITE_API_URL=http://localhost:4000`
+
+Stop and clean:
+
+```bash
+docker compose down -v
+```
+
 ### Notes
 
 - The API mounts under `/api`. The web app uses `VITE_API_BASE` to find it.

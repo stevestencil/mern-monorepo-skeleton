@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    env_file:
+      - apps/api/.env.example
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - MONGODB_URI=mongodb://mongo:27017/mern
+    depends_on:
+      - mongo
+    ports:
+      - "4000:4000"
+    profiles: ["prod", "dev"]
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=http://localhost:4000
+    depends_on:
+      - api
+    ports:
+      - "5173:5173"
+    profiles: ["prod", "dev"]
+
+volumes:
+  mongo_data:
