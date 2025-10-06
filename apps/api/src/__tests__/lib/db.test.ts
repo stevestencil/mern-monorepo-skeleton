@@ -23,7 +23,7 @@ describe("connectDB", () => {
 
     await connectDB();
 
-    expect(mockConnect).toHaveBeenCalledWith(process.env.MONGODB_URI);
+    expect(mockConnect).toHaveBeenCalledWith(process.env["MONGODB_URI"]);
   });
 
   it("should not connect when already connected", async () => {
@@ -41,6 +41,6 @@ describe("connectDB", () => {
     mockConnect.mockRejectedValue(connectionError);
 
     await expect(connectDB()).rejects.toThrow("Connection failed");
-    expect(mockConnect).toHaveBeenCalledWith(process.env.MONGODB_URI);
+    expect(mockConnect).toHaveBeenCalledWith(process.env["MONGODB_URI"]);
   });
 });
