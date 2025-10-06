@@ -1,0 +1,21 @@
+---
+description: Core conventions, repo tasks, and coding standards for the monorepo
+globs:
+  - "**/*"
+---
+
+# Project-wide Conventions
+- Use TypeScript strict mode everywhere.
+- Prefer functional, small modules. Avoid long classes.
+- Always write a short JSDoc for exported functions and types.
+- Do not hardcode env secrets; read from process.env with typed helpers.
+
+# Tasks
+- `pnpm dev`: run all dev servers (web + api).
+- `pnpm build`, `pnpm test`, `pnpm lint`, `pnpm typecheck` use Turborepo.
+
+# Files & Paths
+- Shared code is in `packages/shared`. Import with `@shared/*` path alias.
+
+# Commit Hygiene
+- Keep PRs small. Add/adjust tests with code changes.

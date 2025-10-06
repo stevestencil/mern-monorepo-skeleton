@@ -1,0 +1,10 @@
+---
+description: Security & env guidance
+globs:
+  - "**/*"
+---
+
+# Security
+- Never commit .env or secrets. Provide .env.example.
+- Use Helmet, CORS on API. Validate inputs with Zod.
+- Sanitize outputs; avoid echoing raw error messages.

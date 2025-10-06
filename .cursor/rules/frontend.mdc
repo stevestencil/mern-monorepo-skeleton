@@ -1,0 +1,13 @@
+---
+description: Rules for React app, data fetching, and UI structure
+globs:
+  - "apps/web/**"
+---
+
+# React Rules
+- Use React Router for pages in `src/routes/*`.
+- Use TanStack Query for server state. Never fetch in useEffect directly.
+- Centralize API calls in `src/api.ts`. Always throw on non-2xx.
+
+# Components
+- Keep pages thin; extract components when they exceed ~100 lines.

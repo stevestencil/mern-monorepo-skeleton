@@ -1,0 +1,17 @@
+---
+description: Rules for Express API, Mongo models, routing, and validation
+globs:
+  - "apps/api/**"
+---
+
+# API Rules
+- Use Express routers per resource under `apps/api/src/routes/*`.
+- Validate all request bodies with Zod before DB writes.
+- Use Mongoose models in `apps/api/src/models/*`. Keep schemas minimal.
+
+# Error Handling
+- Fail fast on validation with 400 and formatted zod error.
+- Log server errors with pino; never leak stack traces to clients.
+
+# Testing
+- For routes, write Vitest + Supertest specs in `__tests__`.
