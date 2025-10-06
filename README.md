@@ -99,14 +99,14 @@ The script will:
   - Web: `5173`
   - MongoDB: `27017`
 
-Build and run (prod profile):
+Build and run:
 
 ```bash
 # Build images
-docker compose build --profile prod
+docker compose build
 
 # Run stack
-docker compose up -d --profile prod
+docker compose up -d
 
 # Logs
 docker compose logs -f api

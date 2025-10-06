@@ -26,7 +26,8 @@ RUN pnpm --filter ./apps/api build
 # Prune prod deps
 FROM deps AS prod-deps
 WORKDIR /workspace
-RUN pnpm prune --prod --filter ./apps/api
+# Create a production-only deployment for just the API workspace
+RUN pnpm --filter ./apps/api deploy --prod --legacy /out
 
 # Runtime image
 FROM node:20-alpine AS runtime
@@ -36,10 +37,10 @@ ENV NODE_ENV=production
 # Install pnpm for runtime scripts (optional but small)
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Copy built output and node_modules for app filter
+# Copy built output and pruned production deps
 COPY --from=build /workspace/apps/api/dist ./dist
-COPY --from=prod-deps /workspace/apps/api/package.json ./package.json
-COPY --from=prod-deps /workspace/apps/api/node_modules ./node_modules
+COPY --from=prod-deps /out/package.json ./package.json
+COPY --from=prod-deps /out/node_modules ./node_modules
 
 # Expose API port
 ENV PORT=4000

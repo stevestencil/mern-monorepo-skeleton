@@ -22,7 +22,8 @@ RUN pnpm --filter ./apps/web build
 
 FROM deps AS prod-deps
 WORKDIR /workspace
-RUN pnpm prune --prod --filter ./apps/web
+# Create a production-only deployment for just the Web workspace
+RUN pnpm --filter ./apps/web deploy --prod --legacy /out
 
 # Static file server
 FROM node:20-alpine AS runtime
@@ -30,8 +31,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-# Install a tiny static server
-RUN pnpm add -g serve@14.2.3
+# Install a tiny static server using npm to avoid PNPM global bin issues
+RUN npm install -g serve@14.2.3
 
 COPY --from=build /workspace/apps/web/dist ./dist
 

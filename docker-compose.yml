@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   mongo:
     image: mongo:7
@@ -13,8 +11,6 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-    env_file:
-      - apps/api/.env.example
     environment:
       - NODE_ENV=production
       - PORT=4000
@@ -23,7 +19,6 @@ services:
       - mongo
     ports:
       - "4000:4000"
-    profiles: ["prod", "dev"]
 
   web:
     build:
@@ -36,7 +31,6 @@ services:
       - api
     ports:
       - "5173:5173"
-    profiles: ["prod", "dev"]
 
 volumes:
   mongo_data:
