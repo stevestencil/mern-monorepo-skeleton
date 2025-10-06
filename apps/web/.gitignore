@@ -1,0 +1,9 @@
+# Vite-specific build artifacts
+dist-ssr
+*.local
+
+# App-specific environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

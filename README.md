@@ -12,6 +12,11 @@
 - `packages/shared`: Shared TypeScript types and Zod schemas
 - `packages/config`: Shared config (ESLint, Prettier, TS base)
 
+See per-app guides:
+
+- `apps/api/README.md` – API app usage and environment
+- `apps/web/README.md` – Web app usage and environment
+
 ### One‑time setup
 
 ```bash
@@ -53,8 +58,6 @@ pnpm dev
 - **API** base: `http://localhost:4000/api`
   - Health: `GET /api/healthz`
   - Ready: `GET /api/readyz`
-  - OpenAPI UI: `GET /api/docs`
-  - OpenAPI JSON: `GET /api/docs.json`
 
 Example:
 
