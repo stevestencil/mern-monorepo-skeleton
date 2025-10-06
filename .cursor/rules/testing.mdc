@@ -1,11 +1,17 @@
 ---
 description: Testing standards for web and api
 globs:
-  - "apps/**"
-  - "packages/**"
+  - 'apps/**'
+  - 'packages/**'
 ---
 
 # Testing
+
 - Use Vitest everywhere. On web, use Testing Library.
 - Strive for fast unit tests; mock network and DB where possible.
 - Put tests in `__tests__` close to source.
+
+# CI & Docs
+
+- Use Vitest across workspaces. Keep `pnpm test` green.
+- If test commands or coverage settings change, reflect them in `README.md` where relevant.

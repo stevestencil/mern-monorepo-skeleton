@@ -1,10 +1,16 @@
 ---
 description: Security & env guidance
 globs:
-  - "**/*"
+  - '**/*'
 ---
 
 # Security
+
 - Never commit .env or secrets. Provide .env.example.
 - Use Helmet, CORS on API. Validate inputs with Zod.
 - Sanitize outputs; avoid echoing raw error messages.
+
+# Env Documentation
+
+- Do not commit secrets. Local `.env` files are gitignored.
+- When adding sensitive env vars, provide safe placeholders and document them in `README.md`.
