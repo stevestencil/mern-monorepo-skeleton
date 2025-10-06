@@ -1,3 +1,1 @@
-{
-  "extends": "./packages/config/prettier/base.json"
-}
+"./packages/config/prettier/base.json"
