@@ -10,7 +10,9 @@ describe("App", () => {
     expect(screen.getByText("Vite + React")).toBeInTheDocument();
     expect(screen.getByText("count is 0")).toBeInTheDocument();
     expect(
-      screen.getByText("Edit src/App.tsx and save to test HMR"),
+      screen.getByText((_content, element) => {
+        return element?.textContent === "Edit src/App.tsx and save to test HMR";
+      }),
     ).toBeInTheDocument();
   });
 

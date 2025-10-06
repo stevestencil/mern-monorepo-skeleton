@@ -4,21 +4,37 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import { connectDB } from "../../lib/db";
 
 // Mock mongoose
-vi.mock("mongoose");
+vi.mock("mongoose", () => ({
+  default: {
+    connect: vi.fn(),
+    connection: {
+      readyState: 0,
+    },
+  },
+  connect: vi.fn(),
+  connection: {
+    readyState: 0,
+  },
+}));
 
 describe("connectDB", () => {
   const mockConnect = vi.mocked(mongoose.connect);
-  const mockConnection = {
-    readyState: 0,
-  };
 
   beforeEach(() => {
     vi.clearAllMocks();
-    Object.assign(mongoose.connection, mockConnection);
+    // Reset the connection state
+    Object.defineProperty(mongoose.connection, "readyState", {
+      value: 0,
+      writable: true,
+      configurable: true,
+    });
   });
 
   it("should connect to database when not already connected", async () => {
-    mockConnection.readyState = 0;
+    Object.defineProperty(mongoose.connection, "readyState", {
+      value: 0,
+      writable: true,
+    });
     mockConnect.mockResolvedValue(mongoose);
 
     await connectDB();
@@ -27,7 +43,10 @@ describe("connectDB", () => {
   });
 
   it("should not connect when already connected", async () => {
-    mockConnection.readyState = 1;
+    Object.defineProperty(mongoose.connection, "readyState", {
+      value: 1,
+      writable: true,
+    });
     mockConnect.mockResolvedValue(mongoose);
 
     await connectDB();
@@ -36,7 +55,10 @@ describe("connectDB", () => {
   });
 
   it("should handle connection errors", async () => {
-    mockConnection.readyState = 0;
+    Object.defineProperty(mongoose.connection, "readyState", {
+      value: 0,
+      writable: true,
+    });
     const connectionError = new Error("Connection failed");
     mockConnect.mockRejectedValue(connectionError);
 
