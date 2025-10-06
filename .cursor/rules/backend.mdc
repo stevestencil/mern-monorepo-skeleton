@@ -1,7 +1,7 @@
 ---
 description: Rules for Express API, Mongo models, routing, and validation
 globs:
-  - 'apps/api/**'
+  - "apps/api/**"
 ---
 
 # API Rules
@@ -24,3 +24,9 @@ globs:
 
 - Validate env with Zod in `apps/api/src/config/env.ts`. Any new env var must be documented in `README.md` with defaults or examples.
 - When adding routes, ensure OpenAPI docs remain accessible and update `README.md` endpoints if developer-facing.
+
+# Comprehensive Documentation
+
+- **API Development**: See `docs/DEVELOPMENT.md` for detailed API patterns, error handling, database models, and testing examples.
+- **Architecture**: See `docs/ARCHITECTURE.md` for API design patterns, security considerations, and performance optimization.
+- **Security**: See `docs/SECURITY.md` for API security best practices and vulnerability reporting.

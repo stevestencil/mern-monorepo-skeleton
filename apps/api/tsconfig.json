@@ -1,8 +1,15 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
   "compilerOptions": {
     "baseUrl": "../..",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": false,
     "paths": {
       "@shared/core": ["packages/shared/src/index.ts"],
       "@shared/*": ["packages/shared/src/*"]

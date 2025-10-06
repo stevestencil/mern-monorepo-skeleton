@@ -1,7 +1,7 @@
 ---
 description: Rules for React app, data fetching, and UI structure
 globs:
-  - 'apps/web/**'
+  - "apps/web/**"
 ---
 
 # React Rules
@@ -20,3 +20,9 @@ globs:
 - Read API base from `VITE_API_BASE`; keep default in `README.md` synced with code.
 - If routes, paths, or error envelope change, update `apps/web/src/api.ts` and the `README.md` examples.
 - Document any new env vars or flags.
+
+# Comprehensive Documentation
+
+- **Frontend Development**: See `docs/DEVELOPMENT.md` for detailed React patterns, component structure, custom hooks, and API client examples.
+- **Architecture**: See `docs/ARCHITECTURE.md` for frontend design patterns, performance optimization, and security considerations.
+- **Security**: See `docs/SECURITY.md` for frontend security best practices and XSS prevention.

@@ -1,8 +1,8 @@
 ---
 description: Testing standards for web and api
 globs:
-  - 'apps/**'
-  - 'packages/**'
+  - "apps/**"
+  - "packages/**"
 ---
 
 # Testing
@@ -15,3 +15,9 @@ globs:
 
 - Use Vitest across workspaces. Keep `pnpm test` green.
 - If test commands or coverage settings change, reflect them in `README.md` where relevant.
+
+# Comprehensive Documentation
+
+- **Testing Patterns**: See `docs/DEVELOPMENT.md` for detailed testing examples, API testing with Supertest, and component testing patterns.
+- **Architecture Testing**: See `docs/ARCHITECTURE.md` for testing considerations in the monorepo structure.
+- **Contributing**: See `CONTRIBUTING.md` for testing requirements and standards.

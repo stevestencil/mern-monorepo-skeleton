@@ -1,7 +1,7 @@
 ---
 description: Core conventions, repo tasks, and coding standards for the monorepo
 globs:
-  - '**/*'
+  - "**/*"
 ---
 
 # Project-wide Conventions
@@ -38,3 +38,10 @@ globs:
 
 - Strict TypeScript across the monorepo. `any` is forbidden.
 - Fix ESLint and type errors before committing.
+
+# Comprehensive Documentation
+
+- **Architecture**: See `docs/ARCHITECTURE.md` for monorepo structure, design patterns, and configuration management.
+- **Development**: See `docs/DEVELOPMENT.md` for detailed development patterns, code organization, and best practices.
+- **Security**: See `docs/SECURITY.md` for security best practices and vulnerability reporting.
+- **Contributing**: See `CONTRIBUTING.md` for contribution guidelines and development standards.

@@ -1,7 +1,7 @@
 ---
 description: Security & env guidance
 globs:
-  - '**/*'
+  - "**/*"
 ---
 
 # Security
@@ -14,3 +14,9 @@ globs:
 
 - Do not commit secrets. Local `.env` files are gitignored.
 - When adding sensitive env vars, provide safe placeholders and document them in `README.md`.
+
+# Comprehensive Documentation
+
+- **Security Best Practices**: See `docs/SECURITY.md` for comprehensive security guidelines, vulnerability reporting, and security checklist.
+- **Architecture Security**: See `docs/ARCHITECTURE.md` for security considerations in the monorepo structure.
+- **Development Security**: See `docs/DEVELOPMENT.md` for security patterns in API and frontend development.

@@ -1,0 +1,83 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Force LF line endings for text files
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.xml text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.less text eol=lf
+*.svg text eol=lf
+*.txt text eol=lf
+*.sh text eol=lf
+*.bat text eol=lf
+*.cmd text eol=lf
+
+# Force CRLF line endings for Windows-specific files
+*.ps1 text eol=crlf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+*.pyc binary
+*.pdf binary
+
+# Package files
+package.json text
+package-lock.json text
+pnpm-lock.yaml text
+yarn.lock text
+
+# Config files
+*.config.js text
+*.config.ts text
+*.config.mjs text
+*.config.cjs text
+.eslintrc.* text
+.prettierrc.* text
+tsconfig*.json text
+vite.config.* text
+turbo.json text
+
+# Docker files
+Dockerfile text
+docker-compose*.yml text
+.dockerignore text
+
+# Git files
+.gitignore text
+.gitattributes text
+
+# Documentation
+README.md text
+CONTRIBUTING.md text
+SECURITY.md text
+CHANGELOG.md text
+LICENSE text
+
+# Environment files
+.env* text

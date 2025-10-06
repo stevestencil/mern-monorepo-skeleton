@@ -1,16 +1,16 @@
 // Flat ESLint config for ESLint v9+
 // Applies to all workspaces (apps and packages)
-import tseslint from 'typescript-eslint';
-import pluginImportX from 'eslint-plugin-import-x';
+import tseslint from "typescript-eslint";
+import pluginImportX from "eslint-plugin-import-x";
 
 export default [
   {
-    ignores: ['**/dist/**', '**/node_modules/**'],
+    ignores: ["**/dist/**", "**/node_modules/**"],
   },
   // Type-aware configs per workspace tsconfig
   ...tseslint.configs.recommendedTypeChecked,
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -20,25 +20,60 @@ export default [
       },
     },
     plugins: {
-      '@typescript-eslint': tseslint.plugin,
-      'import-x': pluginImportX,
+      "@typescript-eslint": tseslint.plugin,
+      "import-x": pluginImportX,
     },
     rules: {
-      // Place shared repo rules here; prettier handled by tooling
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/await-thenable': 'error',
-      '@typescript-eslint/no-floating-promises': 'error',
-      '@typescript-eslint/no-unsafe-return': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
+      // TypeScript strict rules
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/await-thenable": "error",
+      "@typescript-eslint/no-floating-promises": "error",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
       ],
       // These can be noisy with schema builders like Zod; rely on TS strictness instead
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      'import-x/consistent-type-specifier-style': ['error', 'prefer-top-level'],
-      'import-x/order': 'off',
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+
+      // Additional TypeScript strict rules
+      "@typescript-eslint/prefer-nullish-coalescing": "error",
+      "@typescript-eslint/prefer-optional-chain": "error",
+      "@typescript-eslint/no-unnecessary-condition": "error",
+      "@typescript-eslint/no-unnecessary-type-assertion": "error",
+      "@typescript-eslint/prefer-readonly": "error",
+      "@typescript-eslint/prefer-function-type": "error",
+      "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        { prefer: "type-imports", fixStyle: "inline-type-imports" },
+      ],
+
+      // Import organization
+      "import-x/consistent-type-specifier-style": ["error", "prefer-top-level"],
+      "import-x/order": [
+        "error",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "type",
+          ],
+          "newlines-between": "always",
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
+      "import-x/no-duplicate-imports": "error",
+      "import-x/no-unused-modules": "error",
     },
   },
 ];
