@@ -35,7 +35,7 @@ describe('AppError', () => {
   });
 
   it('should create notFound error with custom message', () => {
-    const error = AppError.notFound('User not found');
+    const error = AppError.notFound('User');
 
     expect(error.status).toBe(404);
     expect(error.code).toBe('NOT_FOUND');
@@ -46,15 +46,15 @@ describe('AppError', () => {
     const error = AppError.internal();
 
     expect(error.status).toBe(500);
-    expect(error.code).toBe('INTERNAL');
-    expect(error.message).toBe('Internal server error');
+    expect(error.code).toBe('INTERNAL_ERROR');
+    expect(error.message).toBe('An unexpected error occurred');
   });
 
   it('should create internal error with custom message', () => {
     const error = AppError.internal('Database connection failed');
 
     expect(error.status).toBe(500);
-    expect(error.code).toBe('INTERNAL');
+    expect(error.code).toBe('INTERNAL_ERROR');
     expect(error.message).toBe('Database connection failed');
   });
 });
@@ -75,8 +75,27 @@ describe('formatZod', () => {
         expect(formatted).toEqual({
           error: {
             code: 'VALIDATION_ERROR',
-            message: 'Validation failed',
-            details: error.issues,
+            message:
+              'Validation failed. Please check your input and try again.',
+            details: {
+              issues: [
+                {
+                  field: 'email',
+                  message: 'Invalid email address',
+                  code: 'invalid_format',
+                  received: undefined,
+                },
+                {
+                  field: 'age',
+                  message: 'Too small: expected number to be >=18',
+                  code: 'too_small',
+                  received: undefined,
+                },
+              ],
+              summary: '2 validation errors found',
+            },
+            timestamp: expect.any(String),
+            path: undefined,
           },
         });
       }
@@ -90,7 +109,7 @@ describe('errorHandler', () => {
   let mockNext: NextFunction;
 
   beforeEach(() => {
-    mockReq = {};
+    mockReq = { path: '/test' };
     mockRes = {
       status: vi.fn().mockReturnThis(),
       json: vi.fn().mockReturnThis(),
@@ -109,6 +128,8 @@ describe('errorHandler', () => {
         code: 'BAD_REQUEST',
         message: 'Invalid input',
         details: { field: 'email' },
+        timestamp: expect.any(String),
+        path: '/test',
       },
     });
   });
@@ -131,8 +152,20 @@ describe('errorHandler', () => {
     expect(mockRes.json).toHaveBeenCalledWith({
       error: {
         code: 'VALIDATION_ERROR',
-        message: 'Validation failed',
-        details: zodError!.issues,
+        message: 'Validation failed. Please check your input and try again.',
+        details: {
+          issues: [
+            {
+              field: '',
+              message: 'Invalid email address',
+              code: 'invalid_format',
+              received: undefined,
+            },
+          ],
+          summary: '1 validation error found',
+        },
+        timestamp: expect.any(String),
+        path: '/test',
       },
     });
   });
@@ -150,8 +183,10 @@ describe('errorHandler', () => {
     expect(mockRes.status).toHaveBeenCalledWith(500);
     expect(mockRes.json).toHaveBeenCalledWith({
       error: {
-        code: 'INTERNAL',
-        message: 'Internal server error',
+        code: 'INTERNAL_ERROR',
+        message: 'An unexpected error occurred. Please try again later.',
+        timestamp: expect.any(String),
+        path: '/test',
       },
     });
   });

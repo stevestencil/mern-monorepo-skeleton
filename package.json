@@ -16,7 +16,16 @@
     "prepare": "husky install",
     "changeset": "changeset",
     "init-latest": "bash scripts/init-latest.sh aggressive",
-    "init-latest:conservative": "bash scripts/init-latest.sh conservative"
+    "init-latest:conservative": "bash scripts/init-latest.sh conservative",
+    "ai:new-feature": "bash scripts/ai-dev-helper.sh new-feature",
+    "ai:check-setup": "bash scripts/ai-dev-helper.sh check-setup",
+    "ai:check-health": "bash scripts/ai-dev-helper.sh check-health",
+    "ai:deploy-ready": "bash scripts/ai-dev-helper.sh deploy-ready",
+    "ai:clean": "bash scripts/ai-dev-helper.sh clean",
+    "workflow:ai": "bash scripts/dev-workflow.sh ai-workflow",
+    "workflow:user": "bash scripts/dev-workflow.sh user-workflow",
+    "workflow:qa": "bash scripts/dev-workflow.sh qa-workflow",
+    "workflow:deploy": "bash scripts/dev-workflow.sh deploy-workflow"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.7",

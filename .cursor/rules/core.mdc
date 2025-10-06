@@ -48,11 +48,19 @@ globs:
 
 - Strict TypeScript across the monorepo. `any` type is **FORBIDDEN** - use proper typing or `unknown`.
 - Enable `noImplicitAny`, `noExplicitAny` compiler flags - enforced via ESLint.
+- **MANDATORY**: Run linting checks on ALL modified files before task completion.
 - Fix ESLint and type errors before committing.
 - All functions must have explicit return types when not inferrable.
 - Use proper TypeScript utility types (Partial, Pick, Omit, Record, etc.).
 - Prefer type definitions over interfaces when possible for better performance.
 - Use const assertions for immutable data structures.
+
+# Quality Assurance
+
+- **CRITICAL**: See `.cursor/rules/quality-assurance.mdc` for mandatory linting and quality checks.
+- **NO EXCEPTIONS**: All linting errors must be fixed before task completion.
+- **VERIFY**: Always run `read_lints` on modified files and fix all errors.
+- **QUALITY GATES**: Task completion only allowed when all quality checks pass.
 
 # Documentation Requirements
 

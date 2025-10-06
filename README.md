@@ -69,11 +69,29 @@ curl -s http://localhost:4000/api/healthz
 
 - `pnpm dev`: Run all workspaces in dev via Turborepo
 - `pnpm build`: Build all workspaces
-- `pnpm test`: Run all tests with Jest
-- `pnpm test:watch`: Run tests in watch mode
-- `pnpm test:coverage`: Run tests with coverage reports
+- `pnpm test`: Run all tests with Vitest
+- `pnpm test:integration`: Run integration tests
 - `pnpm lint`: Lint all workspaces
 - `pnpm typecheck`: Type-check all workspaces
+
+### AI Development Helper Scripts
+
+For AI agents working on this project:
+
+- `pnpm ai:new-feature <name>`: Create a new feature branch
+- `pnpm ai:check-setup`: Check project setup and dependencies
+- `pnpm ai:check-health`: Run comprehensive health checks
+- `pnpm ai:deploy-ready`: Prepare project for deployment
+- `pnpm ai:clean`: Clean project (remove node_modules, dist, etc.)
+
+### Development Workflows
+
+- `pnpm workflow:ai`: Complete AI agent development workflow
+- `pnpm workflow:user`: User development workflow
+- `pnpm workflow:qa`: Quality assurance workflow
+- `pnpm workflow:deploy`: Build and deploy workflow
+
+See `docs/HELPER_SCRIPTS.md` for detailed usage instructions.
 
 Workspace-specific scripts also exist under each package (e.g., `apps/api`, `apps/web`).
 

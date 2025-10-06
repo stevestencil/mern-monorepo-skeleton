@@ -1,0 +1,144 @@
+---
+description: Quality assurance rules for mandatory linting checks
+globs:
+  - '**/*.{ts,tsx,js,jsx}'
+---
+
+# Quality Assurance Rules
+
+## MANDATORY: Linting Check Before Task Completion
+
+**CRITICAL RULE**: Before marking ANY coding task as complete, you MUST:
+
+1. **Run linting checks** on ALL files you've created or modified
+2. **Fix ALL linting errors** before considering the task complete
+3. **Verify no linting errors remain** with a final check
+4. **Never skip this step** - it's mandatory for every code change
+
+### Required Process
+
+```bash
+# 1. Check linting for all modified files
+read_lints --paths [file1, file2, file3, ...]
+
+# 2. If errors found, fix them immediately
+# 3. Re-check until NO errors remain
+# 4. Only then mark task as complete
+```
+
+### Files That Must Be Checked
+
+- **New files**: All newly created files
+- **Modified files**: Any file with changes
+- **Related files**: Files that import from changed files
+- **Configuration files**: Any config changes
+
+### Common Linting Issues to Watch For
+
+1. **TypeScript strict mode violations**:
+   - `any` type usage (forbidden)
+   - Missing return types
+   - Implicit any parameters
+   - Unused variables
+
+2. **Import/export issues**:
+   - Type-only imports when `verbatimModuleSyntax` is enabled
+   - Missing imports
+   - Unused imports
+
+3. **Code style violations**:
+   - Inconsistent formatting
+   - Missing semicolons
+   - Incorrect quote usage
+
+4. **Type compatibility issues**:
+   - `exactOptionalPropertyTypes` violations
+   - Null/undefined type mismatches
+   - Generic type constraints
+
+### Quality Gates
+
+**Task completion is ONLY allowed when**:
+
+- ✅ All linting errors are fixed
+- ✅ All TypeScript errors are resolved
+- ✅ All ESLint warnings are addressed
+- ✅ Code follows project style guidelines
+- ✅ No `any` types are used
+- ✅ All imports are properly typed
+
+### Enforcement
+
+- **This rule is NON-NEGOTIABLE**
+- **No exceptions** for "minor" linting issues
+- **All errors must be fixed** before task completion
+- **Quality over speed** - take time to fix properly
+
+### AI Agent Responsibilities
+
+1. **Always run linting checks** after code changes
+2. **Fix errors immediately** when found
+3. **Verify fixes work** with re-checking
+4. **Never mark complete** with outstanding linting errors
+5. **Ask for help** if unable to fix complex linting issues
+
+### Common Fixes
+
+#### TypeScript Issues
+
+```typescript
+// ❌ Bad
+const data: any = response.data;
+
+// ✅ Good
+const data: User = response.data;
+```
+
+#### Import Issues
+
+```typescript
+// ❌ Bad
+import { ApiError, ErrorResponse } from '@shared/types/errors';
+
+// ✅ Good
+import type { ApiError, ErrorResponse } from '@shared/types/errors';
+```
+
+#### Optional Properties
+
+```typescript
+// ❌ Bad
+path?: string;
+
+// ✅ Good
+path?: string | undefined;
+```
+
+### Quality Checklist
+
+Before marking any task complete, verify:
+
+- [ ] No linting errors in any modified file
+- [ ] No TypeScript compilation errors
+- [ ] No ESLint warnings
+- [ ] Code follows project conventions
+- [ ] All imports are properly typed
+- [ ] No `any` types used
+- [ ] All functions have proper return types
+- [ ] Error handling is implemented
+- [ ] Tests pass (if applicable)
+
+### Consequences of Skipping
+
+**NEVER skip linting checks because**:
+
+- It creates technical debt
+- It breaks the build process
+- It violates project standards
+- It makes code harder to maintain
+- It can cause runtime errors
+- It reflects poorly on code quality
+
+### Remember
+
+**Quality is not negotiable. Every line of code must meet the project's standards before task completion.**
