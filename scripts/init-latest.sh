@@ -18,6 +18,29 @@ fi
 echo "[init-latest] Re-installing to regenerate lockfiles..."
 pnpm -w install
 
+echo "[init-latest] Ensuring env files..."
+mkdir -p apps/api apps/web
+
+if [ ! -f "apps/api/.env" ]; then
+  cat > apps/api/.env <<'EOF'
+MONGODB_URI=mongodb://127.0.0.1:27017/mern_monorepo
+PORT=4000
+NODE_ENV=development
+EOF
+  echo "[init-latest] Created apps/api/.env"
+else
+  echo "[init-latest] apps/api/.env exists; leaving unchanged."
+fi
+
+if [ ! -f "apps/web/.env" ]; then
+  cat > apps/web/.env <<'EOF'
+VITE_API_BASE=http://localhost:4000/api
+EOF
+  echo "[init-latest] Created apps/web/.env"
+else
+  echo "[init-latest] apps/web/.env exists; leaving unchanged."
+fi
+
 echo "[init-latest] Running checks..."
 pnpm -w lint
 pnpm -w typecheck
