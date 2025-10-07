@@ -15,7 +15,7 @@ fi
 
 # Start development services
 echo "🐳 Starting development services..."
-docker-compose -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.dev.yml up -d
 
 echo "✅ Development environment is ready!"
 echo "📝 Services available:"
@@ -23,4 +23,4 @@ echo "  - API: http://localhost:4000"
 echo "  - Web: http://localhost:5173"
 echo "  - MongoDB: localhost:27017"
 echo ""
-echo "🛑 To stop: docker-compose -f docker-compose.dev.yml down"
+echo "🛑 To stop: docker compose -f docker-compose.dev.yml down"

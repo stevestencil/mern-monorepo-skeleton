@@ -15,11 +15,11 @@ fi
 
 # Start test services
 echo "🐳 Starting test services..."
-docker-compose -f docker-compose.test.yml up -d
+docker compose -f docker-compose.test.yml up -d
 
 echo "✅ Test environment is ready!"
 echo "📝 Services available:"
 echo "  - Test MongoDB: localhost:27018"
 echo "  - Test API: localhost:4001"
 echo ""
-echo "🛑 To stop: docker-compose -f docker-compose.test.yml down"
+echo "🛑 To stop: docker compose -f docker-compose.test.yml down"
