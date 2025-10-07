@@ -1,15 +1,15 @@
 import request from 'supertest';
 
-import { app } from '../../server';
+import { getTestServer } from './server-setup';
 
-import type { Express } from 'express';
-
-export const getTestApp = (): Express => {
-  return app;
+export const getTestApp = () => {
+  const { server } = getTestServer();
+  return server;
 };
 
 export const makeRequest = () => {
-  return request(app);
+  const { baseUrl } = getTestServer();
+  return request(baseUrl);
 };
 
 export const waitForDatabase = async (maxAttempts = 10): Promise<void> => {

@@ -1,0 +1,39 @@
+# Test Docker Compose
+# Usage: docker-compose -f docker-compose.test.yml up
+
+services:
+  # Test MongoDB
+  mongo-test:
+    image: mongo:7
+    restart: "no"
+    volumes:
+      - mongo_test_data:/data/db
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=mern_test
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand('ping').ok"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  # Test API (for integration testing)
+  api-test:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      - NODE_ENV=test
+      - PORT=4001
+      - MONGODB_URI=mongodb://mongo-test:27017/mern_test
+    depends_on:
+      mongo-test:
+        condition: service_healthy
+    ports:
+      - "4001:4001"
+    command: ["pnpm", "test:integration"]
+
+volumes:
+  mongo_test_data:

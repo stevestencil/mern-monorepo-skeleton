@@ -4,8 +4,13 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    setupFiles: ['./src/__tests__/integration/setup.ts'],
+    setupFiles: ['./src/__tests__/integration/server-setup.ts'],
     include: ['src/__tests__/integration/**/*.test.ts'],
+    env: {
+      MONGODB_URI: 'mongodb://localhost:27018/mern_test',
+      NODE_ENV: 'test',
+      PORT: '4001',
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov', 'html'],

@@ -1,19 +1,8 @@
-import mongoose from 'mongoose';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
-import { getTestApp, makeRequest } from './helpers';
+import { makeRequest } from './helpers';
 
 describe('API Integration Tests', () => {
-  beforeEach(async () => {
-    getTestApp();
-    // Ensure database is connected
-    if (
-      mongoose.connection.readyState !== mongoose.ConnectionStates.connected
-    ) {
-      await mongoose.connect(process.env['MONGODB_URI']!);
-    }
-  });
-
   describe('Health Check Endpoints', () => {
     it('should return health status', async () => {
       const response = await makeRequest().get('/api/healthz').expect(200);

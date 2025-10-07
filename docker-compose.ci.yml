@@ -1,0 +1,21 @@
+# CI Docker Compose
+# Optimized for GitHub Actions CI environment
+
+services:
+  # Test MongoDB for CI
+  mongo-test:
+    image: mongo:7
+    restart: "no"
+    ports:
+      - "27018:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=mern_test
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand('ping').ok"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    # No volumes in CI - use in-memory storage for speed
+    tmpfs:
+      - /data/db
